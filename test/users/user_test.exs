@@ -15,7 +15,8 @@ defmodule Exlivery.Users.UserTest do
 
   describe "build/5" do
     test "when params are valid, returns the user" do
-      response = User.build(@params.name, @prams.email, @params.cpf, @params.age, @params.address)
+      response =
+        User.build(@params.name, @params.email, @params.cpf, @params.age, @params.address)
 
       expected_response = {:ok, build(:user)}
 
@@ -23,7 +24,7 @@ defmodule Exlivery.Users.UserTest do
     end
 
     test "when age is less than 18, returns an error" do
-      response = User.build(@name, @email, @cpf, 17, @params.address)
+      response = User.build(@params.name, @params.email, @cpf, 17, @params.address)
 
       expected_response = {:error, "Invalid parameters"}
 
@@ -31,7 +32,8 @@ defmodule Exlivery.Users.UserTest do
     end
 
     test "when cpf is not a string, returns an error" do
-      response = User.build(@name, @email, 12_345_678_900, @params.age, @params.address)
+      response =
+        User.build(@params.name, @params.email, 12_345_678_900, @params.age, @params.address)
 
       expected_response = {:error, "Invalid parameters"}
 
