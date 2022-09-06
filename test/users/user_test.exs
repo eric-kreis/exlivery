@@ -3,31 +3,27 @@ defmodule Exlivery.Users.UserTest do
 
   alias Exlivery.Users.User
 
-  @name "Eric Kreis"
-  @email "ericalfinitokreis@gmail.com"
-  @cpf "12345678900"
-  @age 20
-  @address "Brasília, DF"
+  import Exlivery.Factory
+
+  @params %{
+    name: "Eric Kreis",
+    email: "ericalfinitokreis@gmail.com",
+    cpf: "12345678900",
+    age: 20,
+    address: "Brasília, DF"
+  }
 
   describe "build/5" do
     test "when params are valid, returns the user" do
-      response = User.build(@name, @email, @cpf, @age, @address)
+      response = User.build(@params.name, @prams.email, @params.cpf, @params.age, @params.address)
 
-      expected_response =
-        {:ok,
-         %Exlivery.Users.User{
-           address: "Brasília, DF",
-           age: 20,
-           cpf: "12345678900",
-           email: "ericalfinitokreis@gmail.com",
-           name: "Eric Kreis"
-         }}
+      expected_response = {:ok, build(:user)}
 
       assert response == expected_response
     end
 
     test "when age is less than 18, returns an error" do
-      response = User.build(@name, @email, @cpf, 17, @address)
+      response = User.build(@name, @email, @cpf, 17, @params.address)
 
       expected_response = {:error, "Invalid parameters"}
 
@@ -35,7 +31,7 @@ defmodule Exlivery.Users.UserTest do
     end
 
     test "when cpf is not a string, returns an error" do
-      response = User.build(@name, @email, 12_345_678_900, @age, @address)
+      response = User.build(@name, @email, 12_345_678_900, @params.age, @params.address)
 
       expected_response = {:error, "Invalid parameters"}
 
