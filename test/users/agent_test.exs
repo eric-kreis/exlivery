@@ -32,7 +32,7 @@ defmodule Exlivery.Users.AgentTest do
       assert response == expected_response
     end
 
-    test "when the user is not foun, return an error" do
+    test "when the user was not found, return an error" do
       response = UserAgent.get("000000000000")
 
       expected_response = {:error, "User not found"}
