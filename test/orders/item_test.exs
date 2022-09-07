@@ -1,9 +1,9 @@
 defmodule Exlivery.Orders.ItemTest do
   use ExUnit.Case
 
-  alias Exlivery.Orders.Item
-
   import Exlivery.Factory
+
+  alias Exlivery.Orders.Item
 
   @params %{
     description: "Pepperoni pizza",

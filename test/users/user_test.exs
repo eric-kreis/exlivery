@@ -1,9 +1,9 @@
 defmodule Exlivery.Users.UserTest do
   use ExUnit.Case
 
-  alias Exlivery.Users.User
-
   import Exlivery.Factory
+
+  alias Exlivery.Users.User
 
   @params %{
     name: "Eric Kreis",
