@@ -1,9 +1,9 @@
 defmodule Exlivery.Users.UserTest do
   use ExUnit.Case
 
-  alias Exlivery.Users.User
-
   import Exlivery.Factory
+
+  alias Exlivery.Users.User
 
   @params %{
     name: "Eric Kreis",
@@ -24,7 +24,7 @@ defmodule Exlivery.Users.UserTest do
     end
 
     test "when age is less than 18, returns an error" do
-      response = User.build(@params.name, @params.email, @cpf, 17, @params.address)
+      response = User.build(@params.name, @params.email, @params.cpf, 17, @params.address)
 
       expected_response = {:error, "Invalid parameters"}
 

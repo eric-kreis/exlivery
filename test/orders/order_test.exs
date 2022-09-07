@@ -1,9 +1,9 @@
 defmodule Exlivery.Orders.OrderTest do
   use ExUnit.Case
 
-  alias Exlivery.Orders.Order
-
   import Exlivery.Factory
+
+  alias Exlivery.Orders.Order
 
   @params %{
     user: build(:user),
