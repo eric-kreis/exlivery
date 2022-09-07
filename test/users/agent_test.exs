@@ -18,27 +18,16 @@ defmodule Exlivery.Users.AgentTest do
   describe "get/1" do
     setup do
       UserAgent.start_link()
+      user = build(:user)
+      {:ok, cpf} = UserAgent.save(user)
 
-      {:ok, cpf} =
-        :user
-        |> build()
-        |> UserAgent.save()
-
-      {:ok, cpf: cpf}
+      {:ok, cpf: cpf, user: user}
     end
 
-    test "when the user exists, returns the user", %{cpf: cpf} do
+    test "when the user exists, returns the user", %{cpf: cpf, user: user} do
       response = UserAgent.get(cpf)
 
-      expected_response =
-        {:ok,
-         %Exlivery.Users.User{
-           address: "Brasília, DF",
-           age: 20,
-           cpf: cpf,
-           email: "ericalfinitokreis@gmail.com",
-           name: "Eric Kreis"
-         }}
+      expected_response = {:ok, user}
 
       assert response == expected_response
     end
