@@ -3,7 +3,7 @@ defmodule Exlivery.Users.Agent do
 
   alias Exlivery.Users.User
 
-  def start_link(), do: Agent.start_link(fn -> %{} end, name: __MODULE__)
+  def start_link, do: Agent.start_link(fn -> %{} end, name: __MODULE__)
 
   def save(%User{} = user), do: Agent.update(__MODULE__, &update_state(&1, user))
 
