@@ -8,26 +8,35 @@ defmodule Exlivery.Orders.ReportTest do
 
   describe "create/1" do
     test "creates the report file" do
-      filename = "report_test.csv"
+      filename = "report_test"
 
       OrderAgent.start_link()
 
-      :order
-      |> build()
-      |> OrderAgent.save()
+      order1 = build(:order)
+      {:ok, order1_uuid} = OrderAgent.save(order1)
 
-      :order
-      |> build()
-      |> OrderAgent.save()
+      order2 = build(:order)
+      {:ok, order2_uuid} = OrderAgent.save(order2)
 
-      Report.create(filename)
-
-      response = File.read!(filename)
-
-      expected_response =
-        "12345678900,pizza,2,35.5japanese,2,22.72,116.44\n12345678900,pizza,2,35.5japanese,2,22.72,116.44\n"
+      response = Report.create(filename)
+      expected_response = {:ok, "Report successfully created"}
 
       assert response == expected_response
+
+      report_content = File.read!("#{filename}.csv")
+
+      assert String.contains?(report_content, [
+               order1.user_cpf,
+               order2.user_cpf,
+               order1_uuid,
+               order2_uuid
+             ]) == true
+    end
+
+    test "if the file extension is specified, returns an error" do
+      filename = "report_test.csv"
+
+      assert Report.create(filename) == {:error, "Filename should not contain file extension"}
     end
   end
 end
