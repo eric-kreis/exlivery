@@ -28,3 +28,5 @@ exlivery-*.tar
 /deps/
 
 .elixir_ls
+
+report*.csv
